@@ -1,0 +1,52 @@
+[  
+  {
+    "relativeUrl": "./inicio",
+    "page": "scInicio.php",
+    "title": "Início"
+  },
+  {
+    "relativeUrl": "./perfil",
+    "page": "scPerfil.php",
+    "title": "Perfil"
+  },
+  {
+    "relativeUrl": "./aulas",
+    "page": "scAulas.php",
+    "title": "Aulas"
+  },
+  {
+    "relativeUrl": "./networking",
+    "page": "scInicio.php",
+    "title": "Networking"
+  },
+  {
+    "relativeUrl": "./calendario",
+    "page": "scInicio.php",
+    "title": "Calendário"
+  },
+  {
+    "relativeUrl": "./anotacoes",
+    "page": "scInicio.php",
+    "title": "Anotações"
+  },
+  {
+    "relativeUrl": "./coordenacao",
+    "page": "scInicio.php",
+    "title": "Coordenação"
+  },
+  {
+    "relativeUrl": "./configuracoes",
+    "page": "scInicio.php",
+    "title": "Configurações"
+  },
+  {
+    "relativeUrl": "./feedback",
+    "page": "scInicio.php",
+    "title": "Feedback"
+  },
+  {
+    "relativeUrl": "./ajuda",
+    "page": "scInicio.php",
+    "title": "Ajuda"
+  }
+]
