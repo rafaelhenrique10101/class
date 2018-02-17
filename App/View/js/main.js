@@ -13,16 +13,20 @@ $(document).ready(function () {
     const SLIDE_IN_LEFT = "slideInLeft animated";
     const SLIDE_OUT_LEFT = "slideOutLeft animated";
     const ANIMATION_END = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+
     const PATH_VIEW = "./App/View/";
     const PATH_SCRIPS_JSON = "./Config/json/";
+    const PATH_MODAL = "./App/View/Modals/";
+    const URL_SISTEMA_LOCAL = "http://localhost:81/class/";
+    const URL_SISTEMA_PRODUCAO = "http://class.enoove.com.br/";
+
     const FILE_JSON_PAGINAS = "paginas.json";
     const TITULO_SISTEMA = "Enoove Class";
     const TITULO_PAGINA_INICIAL = "Início";
     const SC_INICIO = "scInicio.php";
     const URL_AMIGAVEL_INICIO = "inicio";
-    const PATH_MODAL = "./App/View/Modals/";
-    const URL_SISTEMA_LOCAL = "http://localhost:8080/class_enoove/";
-    const URL_SISTEMA_PRODUCAO = "http://class.enoove.com.br/";
+    
+
     const FILE_MODAL_PROGRESSO_CURSO = "md_ProgressoCurso.php";
     const FILE_MODAL_MATERIAL_COMPLEMENTAR = "md_MaterialComplementar.php";
     const FILE_MODAL_AULAS_AUDIO = "md_AulasAudio.php";
@@ -118,13 +122,13 @@ $(document).ready(function () {
 
         var scrollHeightDivMaterialComplementar = $("#id_container_cards_material_complementar").prop("scrollHeight");
         var scrollHeightDivAulasAudio = $("#id_container_cards_aulas_video").prop("scrollHeight");
+        var currentURL = $(location).attr("href");
 
         if ($(window).outerWidth() < $("#id_body").attr("screen")) {
 
             $("#id_container_cards_material_complementar").height(scrollHeightDivMaterialComplementar + "px");
             $("#id_container_cards_aulas_video").height(scrollHeightDivAulasAudio + "px");
-            $("#id_body").attr("screen", $(window).outerWidth());
-            applyCollumnsCardsIsotope();
+            $("#id_body").attr("screen", $(window).outerWidth());            
 
         } else if ($(window).outerWidth() > $("#id_body").attr("screen")) {
 
@@ -132,16 +136,14 @@ $(document).ready(function () {
 
                 $("#id_container_cards_material_complementar").height("344px");
                 $("#id_container_cards_aulas_video").height("344px");
-                $("#id_body").attr("screen", $(window).outerWidth());
-                applyCollumnsCardsIsotope();
+                $("#id_body").attr("screen", $(window).outerWidth());                
             }
 
             if ($(window).outerWidth() >= 867 && $(window).outerWidth() <= 1140) {
 
                 $("#id_container_cards_material_complementar").height("688px");
                 $("#id_container_cards_aulas_video").height("688px");
-                $("#id_body").attr("screen", $(window).outerWidth());
-                applyCollumnsCardsIsotope();
+                $("#id_body").attr("screen", $(window).outerWidth());                
 
             }
 
@@ -149,44 +151,57 @@ $(document).ready(function () {
 
                 $("#id_container_cards_material_complementar").height("688px");
                 $("#id_container_cards_aulas_video").height("688px");
-                $("#id_body").attr("screen", $(window).outerWidth());
-                applyCollumnsCardsIsotope();
+                $("#id_body").attr("screen", $(window).outerWidth());                
             }
         }
+		
+		$(loaderTopo).show();
+
+		if (currentURL.match(URL_SISTEMA_LOCAL)) {
+            urlAmigavel = currentURL.replace(URL_SISTEMA_LOCAL, "");
+        } else {
+            urlAmigavel = currentURL.replace(URL_SISTEMA_PRODUCAO, "");
+        }
+
+		loadPage(PATH_SCRIPS_JSON, FILE_JSON_PAGINAS, urlAmigavel);
     });
 
     // #endregion
 
     function applyCollumnsCardsIsotope() {
-        var countColumns = Number($("#id_container_cards_comentarios").find("div#id_container_column").length);
+    	       
         var cardsComentariosInicio = $("div#id_container_cards_comentarios").find("div#id_content_card_comentarios");
         var widthScreen = $(window).outerWidth();
         var idxContainerColumn = 1;
 
-        if (widthScreen > 1140) {
-            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='1' class='col-list-cards'></div>");
-            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='2' class='col-list-cards'></div>");
-            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='3' class='col-list-cards'></div>");
+        if($("#id_container_cards_comentarios").find("div#id_container_column").length === 0){
+			if (widthScreen > 1140) {
+	            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='1' class='col-list-cards'></div>");
+	            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='2' class='col-list-cards'></div>");
+	            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='3' class='col-list-cards'></div>");
 
-            $.each(cardsComentariosInicio, function (key, div) {
-                $("#id_container_column[id-column='" + idxContainerColumn + "']").append(div.outerHTML);
-                $(div).remove();
-                idxContainerColumn++;
+	            $.each(cardsComentariosInicio, function (key, div) {
+	            	var containerColumn = $("#id_container_column[id-column='" + idxContainerColumn + "']");
+	                $(containerColumn).append(div.outerHTML);
+	                $(div).remove();
+	                idxContainerColumn++;
 
-                idxContainerColumn > 3 ? idxContainerColumn = 1 : true;
-            });
-        } else if (widthScreen > 500) {
-            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='1' class='col-list-cards'></div>");
-            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='2' class='col-list-cards'></div>");
+	                idxContainerColumn > 3 ? idxContainerColumn = 1 : true;
+	            });
+	        } else if (widthScreen > 500) {
+	            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='1' class='col-list-cards'></div>");
+	            $("#id_container_cards_comentarios").append("<div id='id_container_column' id-column='2' class='col-list-cards'></div>");
 
-            $.each(cardsComentariosInicio, function (key, div) {
-                $("#id_container_column[id-column='" + idxContainerColumn + "']").append(div.outerHTML);
-                $(div).remove();
-                idxContainerColumn++;
+	            $.each(cardsComentariosInicio, function (key, div) {
+	            	var containerColumn = $("#id_container_column[id-column='" + idxContainerColumn + "']");
+	                $(containerColumn).append(div.outerHTML);
+	                $(div).remove();
+	                idxContainerColumn++;
 
-                idxContainerColumn > 2 ? idxContainerColumn = 1 : true;
-            });
-        }
+	                idxContainerColumn > 2 ? idxContainerColumn = 1 : true;
+	            });
+	        }
+	      }        
     }
 
     // #region called settimeout
@@ -955,6 +970,8 @@ $(document).ready(function () {
 
         $(divBtnsPostar).hide();
         $(divBtnsCurtir).show();
+
+        initIsotope(".col-list-cards", ".div_content_inicio_3_1");
     });
 
     $(sectionContentMain).off("click", "div#id_btn_curtir_card_comentario").on("click", "div#id_btn_curtir_card_comentario", function (e) {

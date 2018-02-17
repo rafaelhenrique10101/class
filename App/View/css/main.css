@@ -3728,6 +3728,34 @@ input.input_01::-ms-input-placeholder {
         margin-top: 0px;
         margin-bottom: 0px;
     }
+    .div_content_2_1 {
+    /**/
+    width: calc(100% - 50px);
+    float: left;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
+    background-color: #4c1d97;
+}
+.div_content_2_2_1 {
+    width: calc(100% - 50px);
+    float: left;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 15px 0;
+}
+.div_content_2_2_10 {
+    width: calc(100% - 50px);
+    float: left;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 15px 0;
+    min-height: 37px;
+}
     .col-list-cards{
         float: left;
         position: relative;
@@ -3864,7 +3892,7 @@ input.input_01::-ms-input-placeholder {
         float: left;
         position: relative;
         height: 100%;
-        width: calc(100% - 400px);
+        width: calc(100% - 430px);
     }
 }
 
